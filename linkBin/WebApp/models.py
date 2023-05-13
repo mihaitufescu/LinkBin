@@ -1,3 +1,24 @@
 from django.db import models
 
-# Create your models here.
+class User(models.Model):
+    id_user = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=25)
+    password = models.CharField(max_length=25)
+    bio = models.TextField()
+    profile_photo_path = models.TextField()
+    link_count = models.IntegerField()
+    background = models.CharField(max_length=25)
+
+class Link(models.Model):
+    id_link = models.AutoField(primary_key=True)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    link = models.TextField()
+
+class Card(models.Model):
+    id_card = models.AutoField(primary_key=True)
+    key = models.TextField()
+
+class Ownership(models.Model):
+    id_ownership = models.AutoField(primary_key=True)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_card = models.ForeignKey(Card, on_delete=models.CASCADE)
