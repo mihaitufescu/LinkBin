@@ -1,13 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from . import models
 
 
-# Create your forms here.
+# Formular inregistrare
 
 class NewUserForm(UserCreationForm):
-	email = forms.EmailField(required=True)
-
+	email = forms.EmailField(required=True,label='Adresa de mail')
+	username = forms.CharField(required=True, label='Numele de utilizator')
 	class Meta:
 		model = User
 		fields = ("username", "email", "password1", "password2")
@@ -18,3 +19,5 @@ class NewUserForm(UserCreationForm):
 		if commit:
 			user.save()
 		return user
+
+#admin : LinkBin123

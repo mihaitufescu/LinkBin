@@ -2,7 +2,7 @@ from django.db import models
 
 class User(models.Model):
     id_user = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=25)
+    username = models.CharField(max_length=25,unique=True)
     password = models.CharField(max_length=25)
     bio = models.TextField()
     profile_photo_path = models.TextField()
