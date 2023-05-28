@@ -64,6 +64,11 @@ def ProfileRoute(request,username):
     return HttpResponse(rendered_template)
 
 def EditProfileRoute(request,username):
+    newuser=models.User()
+    newuser.username="cpenaldo9"
+    newuser.link_count=1
+    newuser.save()
+
     template = loader.get_template('profile_edit.html')
     data = models.User.objects.get(username=username)
     context = {

@@ -13,15 +13,6 @@
   <header>
     {% include "fragments/navbar.html" %}
   </header>
-  <section id="main-text">
-    <figure class="text-center mt-2">
-      <blockquote class="blockquote">
-        <h1>LinkBin este o platforma utilizata pentru organizarea linkurilor tale utile</h1>
-      </blockquote>
-      <figcaption class="blockquote-footer">
-        Cartea ta de visita inteligenta- Alex
-      </figcaption>
-    </figure>
 
   {% load crispy_forms_tags %}
   <section id="login">
@@ -29,7 +20,8 @@
     <h1>Login</h1>
     <form method="POST">
       {% csrf_token %}
-      {{ login_form|crispy }}
+      {{ login_form | crispy }}
+      </br>
       <button class="btn btn-primary" type="submit">Login</button>
     </form>
     <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
