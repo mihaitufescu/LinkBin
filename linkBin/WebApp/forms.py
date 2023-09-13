@@ -18,6 +18,13 @@ class NewUserForm(UserCreationForm):
 		user.email = self.cleaned_data['email']
 		if commit:
 			user.save()
+		custom_user = models.User()
+		custom_user.username = user.username
+		custom_user.password = user.password
+		custom_user.link_count = 0
+		custom_user.bio = 'Nu este nimic aici momentan'
+		custom_user.background = 'default'
+		custom_user.save()
 		return user
 
 #admin : LinkBin123
