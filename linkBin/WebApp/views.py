@@ -60,22 +60,16 @@ def LoginRequest(request):
 def ProfileRoute(request,username):
     template = loader.get_template('profile.html')
     user = models.User.objects.get(username=username)
-    links = models.Link.objects.filter(id_user=user.id_user)[:5] #limiteaza la 5 linkuri
-    link1 = links[0].link if len(links) >= 1 else None
-    link2 = links[1].link if len(links) >= 2 else None
-    link3 = links[2].link if len(links) >= 3 else None
-    link4 = links[3].link if len(links) >= 4 else None
-    link5 = links[4].link if len(links) >= 5 else None
+    links = models.Link.objects.filter(id_user=user.id_user)[:5]
 
+    link_data = {}
+    for i, link in enumerate(links):
+        link_data[f'link{i+1}'] = link.link
+    
     context = {
         'username': username,
         'data': user,
-        'link1': link1,
-        'link2' : link2,
-        'link3': link3,
-        'link4' :link4,
-        'link5':link5
-
+        **link_data
     }
     linkReq = str(request.path)
     if linkReq.find('/index/') != -1:
@@ -157,11 +151,8 @@ def EditProfileRoute(request,username):
         return HttpResponse(rendered_template)
         return redirect('profile_edit/<str:username>/') #redirectionare post formular
     template = loader.get_template('profile_edit.html')
-    data.link1 = links[0].link if len(links) >= 1 else None #completeaza cu none daca nu exista link
-    data.link2 = links[1].link if len(links) >= 2 else None
-    data.link3 = links[2].link if len(links) >= 3 else None
-    data.link4 = links[3].link if len(links) >= 4 else None
-    data.link5 = links[4].link if len(links) >= 5 else None
+    for i in range(5):
+        setattr(data, f'link{i+1}', links[i].link if i < len(links) else None)
     context = {
         'username': username,
         'data': data
